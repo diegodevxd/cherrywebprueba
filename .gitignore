@@ -1,0 +1,7 @@
+# Herramientas de diseño (taste-skill) — no forman parte del sitio
+.agents/
+skills-lock.json
+
+# Sistema
+Thumbs.db
+.DS_Store

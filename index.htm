@@ -3,169 +3,374 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHERRY - Agencia Web</title>
-    <!-- Fuentes de Google: Poppins para un look moderno -->
+    <title>CHERRY Digital — Desarrollo Web</title>
+    <meta name="description" content="Cherry Digital. Desarrollo web fresco y funcional para negocios que arrancan, crecen y se consolidan. Paquetes desde $5,000 MXN.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Navegación -->
-    <nav class="navbar">
-        <div class="logo">CHERRY<span class="dot">.</span></div>
-        <ul class="nav-links">
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#paquetes">Paquetes</a></li>
-            <li><a href="#equipo">Nosotros</a></li>
-            <li><a href="#contacto" class="btn-nav">Contacto</a></li>
-        </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
-    </nav>
+    <!-- Textura ambiental fija -->
+    <div class="ambient" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
 
-    <!-- Sección Hero (Inicio) -->
+    <!-- Navegación -->
+    <header class="navbar" id="nav">
+        <a href="#inicio" class="logo">Cherry<span class="dot">.</span></a>
+        <nav class="nav-links" id="navLinks">
+            <a href="#servicios">Servicios</a>
+            <a href="#paquetes">Paquetes</a>
+            <a href="#comparativa">Comparativa</a>
+            <a href="#equipo">Nosotros</a>
+            <a href="#contacto" class="btn-nav">Contacto</a>
+        </nav>
+        <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
+            <span></span><span></span>
+        </button>
+    </header>
+
+    <!-- Hero -->
     <section id="inicio" class="hero">
-        <div class="hero-carousel">
-            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop');"></div>
-            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop');"></div>
-            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=1974&auto=format&fit=crop');"></div>
-             <div class="carousel-overlay"></div>
-        </div>
-        <div class="hero-content">
-            <h1>Tu negocio digital, <br><span class="highlight">fresco & funcional.</span></h1>
-            <p>"Nosotros ponemos la cereza en tu pastel digital. Por los mejores ingenieros."</p>
-            <a href="#contacto" class="btn-primary">Cotizar mi sitio</a>
+        <div class="hero-grid">
+            <div class="hero-inner reveal">
+                <span class="eyebrow">Agencia de Desarrollo Web · México</span>
+                <h1 class="hero-title">
+                    Tu negocio digital,<br>
+                    <em>fresco &amp; funcional.</em>
+                </h1>
+                <p class="hero-lead">
+                    Ponemos la cereza en tu pastel digital. Sitios web hechos por ingenieros:
+                    rápidos, claros y pensados para vender.
+                </p>
+                <div class="hero-actions">
+                    <a href="#paquetes" class="btn-solid">
+                        Ver paquetes
+                        <span class="btn-arrow" aria-hidden="true">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                        </span>
+                    </a>
+                    <a href="#contacto" class="btn-ghost">Hablar con el equipo</a>
+                </div>
+                <ul class="hero-meta">
+                    <li><strong>3</strong> paquetes a medida</li>
+                    <li><strong>5–7</strong> días de arranque</li>
+                    <li><strong>100%</strong> a tu marca</li>
+                </ul>
+            </div>
+
+            <div class="hero-media reveal" style="--i:1">
+                <div class="carousel" data-carousel>
+                    <div class="carousel-viewport">
+                        <div class="carousel-track" data-track>
+                            <figure class="slide">
+                                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Editor de código durante el desarrollo de una landing page" loading="eager" decoding="async" width="1200" height="1500">
+                                <figcaption>
+                                    <span class="slide-kicker">Arranque digital</span>
+                                    <span class="slide-cap">Landing pages de alto rendimiento</span>
+                                </figcaption>
+                            </figure>
+                            <figure class="slide">
+                                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" alt="Equipo colaborando frente a laptops" loading="lazy" decoding="async" width="1200" height="1500">
+                                <figcaption>
+                                    <span class="slide-kicker">Identidad corporativa</span>
+                                    <span class="slide-cap">Sitios multipágina a tu marca</span>
+                                </figcaption>
+                            </figure>
+                            <figure class="slide">
+                                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop" alt="Compra en línea con laptop y tarjeta" loading="lazy" decoding="async" width="1200" height="1500">
+                                <figcaption>
+                                    <span class="slide-kicker">Tiendas en línea</span>
+                                    <span class="slide-cap">E-commerce y pasarela de pagos</span>
+                                </figcaption>
+                            </figure>
+                            <figure class="slide">
+                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" alt="Panel de métricas y analíticas" loading="lazy" decoding="async" width="1200" height="1500">
+                                <figcaption>
+                                    <span class="slide-kicker">Sistemas inteligentes</span>
+                                    <span class="slide-cap">Paneles y chatbots 24/7</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="carousel-dots" data-dots></div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Servicios -->
     <section id="servicios" class="section">
         <div class="container">
-            <h2 class="section-title">Lo que hacemos</h2>
-            <div class="cards-grid">
-                <div class="card">
-                    <h3>Arranque Digital</h3>
-                    <p>Ideal para validar tu idea. Creamos <strong>Landing Pages</strong> de alto rendimiento con conexión directa a WhatsApp, perfectas para captar tus primeros clientes rápido.</p>
-                </div>
-                <div class="card">
-                    <h3>Identidad Corporativa</h3>
-                    <p>Sitios multipágina que transmiten confianza total. Integramos video, redes sociales y diseño personalizado para marcas que buscan posicionarse como líderes.</p>
-                </div>
-                <div class="card">
-                    <h3>Sistemas Inteligentes</h3>
-                    <p>Automatizamos tu atención con <strong>Chatbots, Simuladores</strong> y bases de datos. Webs que no solo informan, sino que trabajan por ti las 24 horas.</p>
-                </div>
+            <div class="section-head reveal">
+                <span class="eyebrow">Lo que hacemos</span>
+                <h2 class="section-title">Webs que trabajan por ti, no solo se ven bien.</h2>
+            </div>
+            <div class="bento">
+                <article class="tile reveal" style="--i:0">
+                    <span class="tile-num">01</span>
+                    <h3>Arranque digital</h3>
+                    <p>Landing pages profesionales de alto rendimiento con conexión directa a WhatsApp y correo. Perfectas para validar tu idea y captar tus primeros clientes.</p>
+                </article>
+                <article class="tile reveal" style="--i:1">
+                    <span class="tile-num">02</span>
+                    <h3>Identidad corporativa</h3>
+                    <p>Sitios multipágina que transmiten confianza. Testimonios, videos, redes sociales y diseño a tu marca para posicionarte como referente.</p>
+                </article>
+                <article class="tile reveal" style="--i:2">
+                    <span class="tile-num">03</span>
+                    <h3>Sistemas inteligentes</h3>
+                    <p>Chatbots 24/7, simuladores interactivos y formularios con base de datos. Automatizamos tu atención para que la web trabaje sola.</p>
+                </article>
             </div>
         </div>
     </section>
 
     <!-- Paquetes -->
-    <section id="paquetes" class="section bg-light">
+    <section id="paquetes" class="section section-alt">
         <div class="container">
-            <h2 class="section-title">Nuestros Paquetes</h2>
-            <div class="cards-grid">
-                
-                <!-- Paquete 1: Launch Kit -->
-                <div class="card package-card">
-                    <h3>Launch Kit</h3>
-                    <p class="price">$3,500 MXN</p>
-                    <p class="package-sub">Arranque digital para emprendedores</p>
-                    <ul class="package-list">
-                        <li>Landing Page Profesional</li>
-                        <li>Formulario de Contacto Simple</li>
-                        <li>Integración WhatsApp/Correo</li>
-                        <li>Botón de Descarga de Archivos</li>
-                        <li>Entrega: 5 a 7 días hábiles</li>
-                    </ul>
-                    <p class="hosting-note">*Hosting y dominio no incluidos (~$1,500/año)</p>
-                    <a href="paquetes/PAQUETE%20LAUNCH%20KIT.pdf" class="btn-outline" download>Descargar PDF</a>
-                </div>
+            <div class="section-head reveal">
+                <span class="eyebrow">Inversión</span>
+                <h2 class="section-title">Elige el paquete a tu medida.</h2>
+                <p class="section-sub">Precios en pesos mexicanos (MXN). Cada paquete incluye una capacitación básica al finalizar para que administres tu sitio sin depender de terceros.</p>
+            </div>
 
-                <!-- Paquete 2: Next-Level (MÁS VENDIDO) -->
-                <div class="card package-card popular">
-                    <div class="badge">MÁS VENDIDO</div>
-                    <h3>Next-Level</h3>
-                    <p class="price">$6,000 MXN</p>
-                    <p class="package-sub">Profesionalismo e impulso creativo</p>
-                    <ul class="package-list">
-                        <li>4 Páginas (Inicio, Servicios, Nosotros, Contacto)</li>
-                        <li>Diseño con Íconos Personalizados</li>
-                        <li>Formulario Avanzado</li>
-                        <li>Integración Redes Sociales</li>
-                        <li>Videos con Link</li>
-                        <li>Entrega: 10 a 14 días hábiles</li>
-                    </ul>
-                    <p class="hosting-note">*Hosting y dominio no incluidos (~$1,500/año)</p>
-                    <a href="paquetes/PAQUETE%20NEXT-%20LEVEL.pdf" class="btn-primary" download>Descargar PDF</a>
-                </div>
+            <div class="pricing">
 
-                <!-- Paquete 3: Rise Plus -->
-                <div class="card package-card">
-                    <h3>Rise Plus</h3>
-                    <p class="price">$10,000 MXN</p>
-                    <p class="package-sub">Escala extra para negocios consolidados</p>
-                    <ul class="package-list">
-                        <li>8 Páginas Personalizadas</li>
-                        <li>Formulario con Base de Datos</li>
-                        <li>Chatbot y Simulador</li>
-                        <li>Videos Reels en Tiempo Real</li>
-                        <li>Capacitación al Cliente</li>
-                        <li>Entrega: 3 a 4 semanas</li>
+                <!-- Launch Kit -->
+                <article class="plan reveal" style="--i:0">
+                    <header class="plan-head">
+                        <h3 class="plan-name">Launch Kit</h3>
+                        <p class="plan-tag">Para negocios que inician su arranque digital</p>
+                    </header>
+                    <div class="plan-price">
+                        <span class="amount">$5,000</span>
+                        <span class="currency">MXN</span>
+                    </div>
+                    <p class="plan-breakdown">$4,000 desarrollo · $1,000 hosting y dominio / año</p>
+                    <ul class="feature-list">
+                        <li>Landing page profesional (4 secciones)</li>
+                        <li>Formulario de contacto simple</li>
+                        <li>WhatsApp · 2 redes sociales · 1 correo</li>
+                        <li>Botón de descarga (1 archivo PDF)</li>
+                        <li>Ubicación en Google Maps + horarios</li>
+                        <li>Capacitación básica al finalizar</li>
                     </ul>
-                    <p class="hosting-note">*Hosting y dominio no incluidos (~$1,500/año)</p>
-                    <a href="paquetes/PAQUETE%20RISE%20PLUS.pdf" class="btn-outline" download>Descargar PDF</a>
-                </div>
+                    <p class="plan-delivery"><span>Entrega</span> 5–7 días hábiles</p>
+                    <a href="paquetes/PAQUETE%20LAUNCH%20KIT.pdf" class="btn-outline" download>Descargar propuesta (PDF)</a>
+                </article>
+
+                <!-- Next Level -->
+                <article class="plan plan-featured reveal" style="--i:1">
+                    <span class="plan-badge">Más vendido</span>
+                    <header class="plan-head">
+                        <h3 class="plan-name">Next Level</h3>
+                        <p class="plan-tag">Para negocios en expansión virtual y profesional</p>
+                    </header>
+                    <div class="plan-price">
+                        <span class="amount">$8,000</span>
+                        <span class="currency">MXN</span>
+                    </div>
+                    <p class="plan-breakdown">$7,000 desarrollo · $1,000 hosting y dominio / año</p>
+                    <ul class="feature-list">
+                        <li>Sitio de 6 secciones + carrusel de testimonios</li>
+                        <li>Formulario de contacto avanzado</li>
+                        <li>WhatsApp · 3 redes sociales · 1 correo</li>
+                        <li>Botón de descarga (2 archivos PDF)</li>
+                        <li>Google Maps (2 direcciones) + horarios</li>
+                        <li>Videos con enlace (YouTube / Drive)</li>
+                        <li>Chatbot de atención 24/7</li>
+                        <li>Capacitación básica al finalizar</li>
+                    </ul>
+                    <p class="plan-delivery"><span>Entrega</span> 10–14 días hábiles</p>
+                    <a href="paquetes/PAQUETE%20NEXT%20LEVEL.pdf" class="btn-solid btn-block" download>Descargar propuesta (PDF)</a>
+                </article>
+
+                <!-- Rise Plus -->
+                <article class="plan reveal" style="--i:2">
+                    <header class="plan-head">
+                        <h3 class="plan-name">Rise Plus</h3>
+                        <p class="plan-tag">Para marcas consolidadas que buscan más ventas</p>
+                    </header>
+                    <div class="plan-price">
+                        <span class="amount">$10,000</span>
+                        <span class="currency">MXN</span>
+                    </div>
+                    <p class="plan-breakdown">$9,000 desarrollo · $1,000 hosting y dominio / año</p>
+                    <ul class="feature-list">
+                        <li>Sitio de 8 secciones (certificaciones y promociones)</li>
+                        <li>Formulario de contacto avanzado</li>
+                        <li>Redes sociales y correos ilimitados</li>
+                        <li>Descarga de archivos PDF ilimitados</li>
+                        <li>Google Maps con direcciones ilimitadas</li>
+                        <li>Videos con enlace o simulador interactivo</li>
+                        <li>Testimonios + Chatbot 24/7</li>
+                        <li>Capacitación básica al finalizar</li>
+                    </ul>
+                    <p class="plan-delivery"><span>Entrega</span> 3–4 semanas</p>
+                    <p class="plan-extra">Extras opcionales: tienda en línea · pasarela de pagos</p>
+                    <a href="paquetes/PAQUETE%20RISE%20PLUS.pdf" class="btn-outline" download>Descargar propuesta (PDF)</a>
+                </article>
 
             </div>
         </div>
     </section>
 
-    <!-- Equipo -->
-    <section id="equipo" class="section">
+    <!-- Comparativa -->
+    <section id="comparativa" class="section">
         <div class="container">
-            <h2 class="section-title">El Equipo Cherry</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="avatar-placeholder">M</div>
-                    <h3>Marjo</h3>
-                    <p class="role">Ing. en Sistemas & Estrategia</p>
-                    <p class="desc">Encargada de entender tu negocio y diseñar la mejor solución.</p>
+            <div class="section-head reveal">
+                <span class="eyebrow">Comparativa</span>
+                <h2 class="section-title">Todo lo que incluye cada paquete.</h2>
+            </div>
+            <div class="table-wrap reveal">
+                <table class="compare">
+                    <thead>
+                        <tr>
+                            <th scope="col">Característica</th>
+                            <th scope="col">Launch Kit</th>
+                            <th scope="col" class="col-featured">Next Level</th>
+                            <th scope="col">Rise Plus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th scope="row">Secciones del sitio</th><td>4</td><td class="col-featured">6</td><td>8</td></tr>
+                        <tr><th scope="row">Formulario de contacto</th><td>Simple</td><td class="col-featured">Avanzado</td><td>Avanzado</td></tr>
+                        <tr><th scope="row">Redes sociales</th><td>2</td><td class="col-featured">3</td><td>Ilimitadas</td></tr>
+                        <tr><th scope="row">Correos electrónicos</th><td>1</td><td class="col-featured">1</td><td>Ilimitados</td></tr>
+                        <tr><th scope="row">Archivos PDF descargables</th><td>1</td><td class="col-featured">2</td><td>Ilimitados</td></tr>
+                        <tr><th scope="row">Direcciones en Google Maps</th><td>1</td><td class="col-featured">2</td><td>Ilimitadas</td></tr>
+                        <tr><th scope="row">Carrusel de testimonios</th><td class="no">—</td><td class="col-featured yes">Sí</td><td class="yes">Sí</td></tr>
+                        <tr><th scope="row">Videos con enlace</th><td class="no">—</td><td class="col-featured yes">Sí</td><td class="yes">Sí</td></tr>
+                        <tr><th scope="row">Chatbot 24/7</th><td class="no">—</td><td class="col-featured yes">Sí</td><td class="yes">Sí</td></tr>
+                        <tr><th scope="row">Simulador interactivo</th><td class="no">—</td><td class="col-featured no">—</td><td class="yes">Sí</td></tr>
+                        <tr><th scope="row">Certificaciones y promociones</th><td class="no">—</td><td class="col-featured no">—</td><td class="yes">Sí</td></tr>
+                        <tr><th scope="row">Capacitación básica</th><td class="yes">Sí</td><td class="col-featured yes">Sí</td><td class="yes">Sí</td></tr>
+                        <tr><th scope="row">Tiempo de entrega</th><td>5–7 días</td><td class="col-featured">10–14 días</td><td>3–4 semanas</td></tr>
+                        <tr class="row-price"><th scope="row">Precio total</th><td>$5,000</td><td class="col-featured">$8,000</td><td>$10,000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advertencias / Notas importantes -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">Antes de contratar</span>
+                <h2 class="section-title">Notas importantes.</h2>
+            </div>
+            <div class="notes reveal">
+                <div class="note">
+                    <h4>Hosting y dominio</h4>
+                    <p>No están incluidos en el costo de desarrollo. Se cobran aparte (aprox. $1,000 MXN al año) y pueden variar según el proveedor.</p>
                 </div>
-                <div class="team-member">
-                    <div class="avatar-placeholder">D</div>
-                    <h3>Diego</h3>
-                    <p class="role">Programación Web</p>
-                    <p class="desc">El arquitecto que escribe el código para que todo funcione perfecto.</p>
+                <div class="note">
+                    <h4>Tiempos de entrega</h4>
+                    <p>Los plazos son estimados y dependen de la aprobación del contenido. Ante cualquier imprevisto pueden extenderse hasta 7 días adicionales (14 en Rise Plus).</p>
                 </div>
+                <div class="note">
+                    <h4>El simulador</h4>
+                    <p>Genera una estimación orientativa a partir de las respuestas del usuario. No sustituye una valoración profesional; sirve para captar prospectos y generar confianza.</p>
+                </div>
+                <div class="note">
+                    <h4>Alcance del servicio</h4>
+                    <p>Cada paquete incluye únicamente lo detallado. Cualquier ajuste, función o solicitud adicional se cotiza por separado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Términos y condiciones -->
+    <section id="terminos" class="section">
+        <div class="container container-narrow">
+            <div class="section-head reveal">
+                <span class="eyebrow">Acuerdos claros y humanos</span>
+                <h2 class="section-title">Términos y condiciones.</h2>
+                <p class="section-sub">Están pensados para proteger tu experiencia y nuestro compromiso.</p>
+            </div>
+            <div class="accordion reveal">
+                <details>
+                    <summary>Validez de la cotización <span class="acc-icon" aria-hidden="true"></span></summary>
+                    <p>Los precios y condiciones son válidos hasta diciembre de 2026. Después de esa fecha pueden estar sujetos a actualización.</p>
+                </details>
+                <details>
+                    <summary>Métodos de pago <span class="acc-icon" aria-hidden="true"></span></summary>
+                    <p>Se aceptan únicamente pagos mediante transferencia bancaria.</p>
+                </details>
+                <details>
+                    <summary>Factura fiscal <span class="acc-icon" aria-hidden="true"></span></summary>
+                    <p>En caso de requerir factura, se aplica un cargo adicional del 16% de IVA sobre el total del paquete.</p>
+                </details>
+                <details>
+                    <summary>Alcance y ajustes <span class="acc-icon" aria-hidden="true"></span></summary>
+                    <p>El servicio incluye lo detallado en cada paquete. Cualquier ajuste, modificación o solicitud adicional se cotiza por separado. Tiempos y precios se confirman al aceptar la cotización.</p>
+                </details>
+                <details>
+                    <summary>Contrato de prestación de servicios <span class="acc-icon" aria-hidden="true"></span></summary>
+                    <p>Al aceptar un paquete, ambas partes se comprometen a firmar un contrato de prestación de servicios donde se detallan los términos del proyecto.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipo -->
+    <section id="equipo" class="section section-alt">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">Nosotros</span>
+                <h2 class="section-title">El equipo Cherry.</h2>
+            </div>
+            <div class="team">
+                <article class="member reveal" style="--i:0">
+                    <div class="avatar">M</div>
+                    <div>
+                        <h3>Marjo</h3>
+                        <p class="member-role">Ing. en Sistemas &amp; Estrategia</p>
+                        <p class="member-desc">Entiende tu negocio y diseña la mejor solución digital para tus objetivos.</p>
+                    </div>
+                </article>
+                <article class="member reveal" style="--i:1">
+                    <div class="avatar">D</div>
+                    <div>
+                        <h3>Diego</h3>
+                        <p class="member-role">Programación Web</p>
+                        <p class="member-desc">El arquitecto que escribe el código para que todo funcione perfecto.</p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
     <!-- Contacto -->
     <section id="contacto" class="section">
-        <div class="container contact-container">
-            <h2>¿Listo para empezar?</h2>
-            <p>Hablemos de tu próximo proyecto.</p>
-            <a href="https://wa.me/5214771573936" class="btn-whatsapp" target="_blank">Mándanos un WhatsApp</a>
-            <!-- Aquí podrías agregar un formulario más adelante -->
+        <div class="container">
+            <div class="cta reveal">
+                <span class="eyebrow eyebrow-invert">¿Listo para empezar?</span>
+                <h2>Hablemos de tu próximo proyecto.</h2>
+                <p>Cuéntanos qué necesitas y te ayudamos a elegir el paquete ideal.</p>
+                <a href="https://wa.me/5214771573936" class="btn-whatsapp" target="_blank" rel="noopener">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.98-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43l-.48-.01c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.16 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+                    Escríbenos por WhatsApp
+                </a>
+            </div>
         </div>
     </section>
 
-    <a href="https://wa.me/5214771573936" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
+    <a href="https://wa.me/5214771573936" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.98-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43l-.48-.01c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.16 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
     </a>
 
-    <footer>
-        <p>&copy; 2026 CHERRY Agencia Web.</p>
+    <footer class="footer">
+        <div class="container footer-inner">
+            <span class="logo">Cherry<span class="dot">.</span></span>
+            <p>&copy; 2026 Cherry Digital · Agencia de Desarrollo Web</p>
+            <a href="#inicio" class="footer-top">Volver arriba ↑</a>
+        </div>
     </footer>
 
     <script src="script.js"></script>
