@@ -408,24 +408,52 @@ details[open] .acc-icon::after { transform: rotate(90deg); opacity: 0; }
 }
 @keyframes accReveal { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 
-/* ---------- Equipo ---------- */
-.team { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-.member {
-    display: flex; gap: 1.4rem; align-items: center;
+/* ---------- Equipo (carrusel) ---------- */
+.team-carousel { display: flex; flex-direction: column; align-items: center; gap: 1.75rem; }
+.team-stack { position: relative; width: min(380px, 100%); height: 300px; }
+.team-card {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; gap: 0.85rem; padding: 2.4rem 2rem;
     background: var(--surface); border: 1px solid var(--line);
-    border-radius: 16px; padding: 2rem;
-    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+    transition: transform 0.45s var(--ease), opacity 0.45s var(--ease);
+    transform:
+        translateX(var(--drag-x, 0px))
+        translateY(calc(var(--pos, 0) * 10px))
+        scale(calc(1 - var(--pos, 0) * 0.06))
+        rotate(var(--drag-rot, calc(var(--pos, 0) * -3deg)));
+    opacity: calc(1 - var(--pos, 0) * 0.45);
 }
-.member:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.05); }
-.avatar {
-    flex-shrink: 0; width: 68px; height: 68px; border-radius: 14px;
+.team-card.is-front { cursor: grab; touch-action: pan-y; }
+.team-card.is-front.dragging { cursor: grabbing; transition: none; }
+.team-card:not(.is-front) { pointer-events: none; }
+.team-card-avatar {
+    width: 64px; height: 64px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Newsreader', serif; font-size: 1.8rem; font-weight: 600; color: #fff;
+    font-family: 'Newsreader', serif; font-size: 1.6rem; font-weight: 600; color: #fff;
     background: var(--ink);
 }
-.member h3 { font-size: 1.3rem; margin-bottom: 0.15rem; }
-.member-role { color: var(--cherry-ink); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.5rem; }
-.member-desc { color: var(--ink-soft); font-size: 0.92rem; }
+.team-card h3 { font-size: 1.25rem; }
+.team-card-role { color: var(--cherry-ink); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.team-card-desc { color: var(--ink-soft); font-size: 0.92rem; max-width: 30ch; }
+
+.team-arrows { display: flex; align-items: center; gap: 1.25rem; }
+.team-arrow {
+    width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line);
+    background: var(--surface); color: var(--ink-soft); font-size: 1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.team-arrow:hover { color: var(--cherry-ink); border-color: var(--cherry-ink); transform: translateY(-2px); }
+.team-dots { display: flex; gap: 0.5rem; }
+.team-dots button {
+    width: 8px; height: 8px; border-radius: 50%; border: none;
+    background: var(--line); cursor: pointer; padding: 0;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.team-dots button.active { background: var(--cherry); transform: scale(1.3); }
 
 /* ---------- CTA ---------- */
 .cta {
@@ -483,7 +511,7 @@ details[open] .acc-icon::after { transform: rotate(90deg); opacity: 0; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-    .bento, .pricing, .notes, .team { grid-template-columns: 1fr; }
+    .bento, .pricing, .notes { grid-template-columns: 1fr; }
     .plan-featured { order: -1; }
     .plan-tag { min-height: 0; }
 
