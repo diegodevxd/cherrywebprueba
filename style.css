@@ -318,13 +318,12 @@ a { color: inherit; text-decoration: none; }
 }
 .plan-name { font-family: 'Newsreader', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: -0.01em; }
 .plan-tag { color: var(--ink-muted); font-size: 0.9rem; margin-top: 0.35rem; min-height: 2.6em; }
-.plan-price { display: flex; align-items: baseline; gap: 0.4rem; margin: 1.4rem 0 0.3rem; }
+.plan-price {
+    display: flex; align-items: baseline; gap: 0.4rem;
+    margin: 1.4rem 0 1.4rem; padding-bottom: 1.4rem; border-bottom: 1px solid var(--line);
+}
 .plan-price .amount { font-family: 'Newsreader', serif; font-size: 2.7rem; font-weight: 600; letter-spacing: -0.03em; }
 .plan-price .currency { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--ink-muted); }
-.plan-breakdown {
-    font-size: 0.8rem; color: var(--ink-muted);
-    padding-bottom: 1.4rem; margin-bottom: 1.4rem; border-bottom: 1px solid var(--line);
-}
 .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.6rem; }
 .feature-list li {
     position: relative; padding-left: 1.7rem;
