@@ -410,7 +410,7 @@ details[open] .acc-icon::after { transform: rotate(90deg); opacity: 0; }
 
 /* ---------- Equipo (carrusel) ---------- */
 .team-carousel { display: flex; flex-direction: column; align-items: center; gap: 1.75rem; }
-.team-stack { position: relative; width: min(380px, 100%); height: 300px; }
+.team-stack { position: relative; width: min(380px, 100%); height: 220px; }
 .team-card {
     position: absolute; inset: 0;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
