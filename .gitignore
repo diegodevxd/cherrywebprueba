@@ -2,6 +2,11 @@
 .agents/
 skills-lock.json
 
+# Archivos 3D (por ahora sin usar en el sitio; se conservan en local para más adelante)
+modelo3d/
+img/models/
+vendor/
+
 # Sistema
 Thumbs.db
 .DS_Store

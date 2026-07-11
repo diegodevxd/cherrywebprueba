@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 690" width="340" height="690" fill="none">
+  <defs>
+    <linearGradient id="pbody" x1="0" y1="0" x2="340" y2="690" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#232326"/>
+      <stop offset="1" stop-color="#0a0a0b"/>
+    </linearGradient>
+  </defs>
+  <!-- Cuerpo con bisel delgado (pantalla transparente) -->
+  <path fill-rule="evenodd" clip-rule="evenodd"
+    d="M50 4H290A46 46 0 0 1 336 50V640A46 46 0 0 1 290 686H50A46 46 0 0 1 4 640V50A46 46 0 0 1 50 4ZM50 16H290A34 34 0 0 0 324 50V640A34 34 0 0 0 290 674H50A34 34 0 0 0 16 640V50A34 34 0 0 0 50 16Z"
+    fill="url(#pbody)"/>
+  <!-- Cámara frontal en el bisel superior -->
+  <circle cx="170" cy="10" r="2.5" fill="#3a3a3d"/>
+  <!-- Botones laterales -->
+  <rect x="336" y="150" width="4" height="72" rx="2" fill="#141416"/>
+  <rect x="0" y="140" width="4" height="44" rx="2" fill="#141416"/>
+  <rect x="0" y="196" width="4" height="44" rx="2" fill="#141416"/>
+</svg>

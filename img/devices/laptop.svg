@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 520" width="820" height="520" fill="none">
+  <defs>
+    <linearGradient id="lbody" x1="0" y1="0" x2="0" y2="372" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#232326"/>
+      <stop offset="1" stop-color="#0c0c0d"/>
+    </linearGradient>
+    <linearGradient id="lbase" x1="0" y1="372" x2="0" y2="410" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3a3a3d"/>
+      <stop offset="1" stop-color="#161618"/>
+    </linearGradient>
+  </defs>
+  <!-- Tapa con bisel delgado (pantalla transparente) -->
+  <path fill-rule="evenodd" clip-rule="evenodd"
+    d="M174 14H646A14 14 0 0 1 660 28V354A14 14 0 0 1 646 368H174A14 14 0 0 1 160 354V28A14 14 0 0 1 174 14ZM178 26H642A6 6 0 0 0 648 32V350A6 6 0 0 0 642 356H178A6 6 0 0 0 172 350V32A6 6 0 0 0 178 26Z"
+    fill="url(#lbody)"/>
+  <!-- Cámara -->
+  <circle cx="410" cy="20" r="2.6" fill="#3a3a3d"/>
+  <!-- Base / deck -->
+  <path d="M104 368h612c6 0 11.2 4 12.6 9.8l6.6 26.4c1.9 7.6-3.8 15-11.6 15H96.4c-7.8 0-13.5-7.4-11.6-15l6.6-26.4C92.8 372 98 368 104 368Z" fill="url(#lbase)"/>
+  <!-- Muesca de apertura -->
+  <rect x="362" y="368" width="96" height="8" rx="4" fill="#0c0c0d"/>
+</svg>

@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHERRY Digital — Desarrollo Web</title>
     <meta name="description" content="Cherry Digital. Desarrollo web fresco y funcional para negocios que arrancan, crecen y se consolidan. Paquetes desde $5,000 MXN.">
+    <link rel="icon" type="image/png" href="logo/LOGO.png">
+    <link rel="apple-touch-icon" href="logo/LOGO.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -20,7 +22,9 @@
 
     <!-- Navegación -->
     <header class="navbar" id="nav">
-        <a href="#inicio" class="logo">Cherry<span class="dot">.</span></a>
+        <a href="#inicio" class="logo-chip" aria-label="Cherry Digital — inicio">
+            <img src="logo/LOGO.png" alt="Cherry Digital">
+        </a>
         <nav class="nav-links" id="navLinks">
             <a href="#servicios">Servicios</a>
             <a href="#paquetes">Paquetes</a>
@@ -43,8 +47,9 @@
                     <em>fresco &amp; funcional.</em>
                 </h1>
                 <p class="hero-lead">
-                    Ponemos la cereza en tu pastel digital. Sitios web hechos por ingenieros:
-                    rápidos, claros y pensados para vender.
+                    Ponemos la cereza en tu pastel digital.<br>
+                    Sitios web rápidos, elegantes y diseñados para convertir visitas en clientes.
+                    Desarrollados por ingenieros para impulsar el crecimiento de tu negocio.
                 </p>
                 <div class="hero-actions">
                     <a href="#paquetes" class="btn-solid">
@@ -53,7 +58,7 @@
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
                         </span>
                     </a>
-                    <a href="#contacto" class="btn-ghost">Hablar con el equipo</a>
+                    <a href="#contacto" class="btn-ghost">Agenda una consulta</a>
                 </div>
                 <ul class="hero-meta">
                     <li><strong>3</strong> paquetes a medida</li>
@@ -63,6 +68,43 @@
             </div>
 
             <div class="hero-media reveal" style="--i:1">
+                <!-- Tallos y hoja del par de cerezas -->
+                <svg class="cherry-art" viewBox="0 0 100 95" fill="none" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#7CB342"/>
+                            <stop offset="1" stop-color="#43752B"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M31 30 C34 18 42 10 52 8" stroke="#4E7B2F" stroke-width="1.7" stroke-linecap="round"/>
+                    <path d="M75 25 C71 14 62 9 52 8" stroke="#4E7B2F" stroke-width="1.7" stroke-linecap="round"/>
+                    <path d="M52 8 C42 -0.5 25 -1 17 7 C26 14 44 15 52 8 Z" fill="url(#leafGrad)"/>
+                    <path d="M21 7.2 C31 6.2 42 6.8 50 7.8" stroke="#ffffff" stroke-opacity="0.35" stroke-width="0.7" stroke-linecap="round"/>
+                    <circle cx="52" cy="7.6" r="1.7" fill="#5D4327"/>
+                </svg>
+
+                <!-- Cereza secundaria (carrusel, detrás) -->
+                <div class="cherry cherry-b">
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-viewport">
+                            <div class="carousel-track" data-track>
+                                <figure class="slide">
+                                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=900&auto=format&fit=crop" alt="Equipo colaborando en una oficina" loading="lazy" decoding="async">
+                                </figure>
+                                <figure class="slide">
+                                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop" alt="Pago en línea con tarjeta" loading="lazy" decoding="async">
+                                </figure>
+                                <figure class="slide">
+                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=900&auto=format&fit=crop" alt="Panel de métricas y analíticas" loading="lazy" decoding="async">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="cherry-gloss" aria-hidden="true"></span>
+                </div>
+
+                <!-- Cereza principal: el carrusel -->
+                <div class="cherry cherry-a">
                 <div class="carousel" data-carousel>
                     <div class="carousel-viewport">
                         <div class="carousel-track" data-track>
@@ -98,6 +140,8 @@
                     </div>
                     <div class="carousel-dots" data-dots></div>
                 </div>
+                <span class="cherry-gloss" aria-hidden="true"></span>
+                </div>
             </div>
         </div>
     </section>
@@ -107,24 +151,78 @@
         <div class="container">
             <div class="section-head reveal">
                 <span class="eyebrow">Lo que hacemos</span>
-                <h2 class="section-title">Webs que trabajan por ti, no solo se ven bien.</h2>
+                <h2 class="section-title anim-words">El diseño atrae. La estrategia convierte.</h2>
             </div>
-            <div class="bento">
-                <article class="tile reveal" style="--i:0">
-                    <span class="tile-num">01</span>
-                    <h3>Arranque digital</h3>
-                    <p>Landing pages profesionales de alto rendimiento con conexión directa a WhatsApp y correo. Perfectas para validar tu idea y captar tus primeros clientes.</p>
+
+            <div class="devices">
+
+                <!-- Teléfono · Arranque digital -->
+                <article class="svc-row reveal">
+                    <div class="svc-word"><span class="svc-index">01</span></div>
+                    <div class="device-wrap">
+                        <div class="device device--phone tilt" data-tilt>
+                            <div class="device-frame">
+                                <div class="device-screen">
+                                    <div class="screen-page">
+                                        <span class="scr-kicker">Arranque digital</span>
+                                        <h3>Tu presencia digital, lista para vender</h3>
+                                        <p>Impulsa tu negocio con una página web profesional, moderna y adaptada a tus necesidades. Diseño responsivo, fácil de usar y optimizado para atraer clientes. Ideal para emprendedores y pequeñas empresas.</p>
+                                        <p class="scr-cta">¡Empieza tu presencia digital hoy mismo!</p>
+                                    </div>
+                                </div>
+                                <img src="img/devices/phone.svg" alt="Teléfono con un sitio web de Cherry Digital" width="360" height="740">
+                                <span class="device-glare" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
                 </article>
-                <article class="tile reveal" style="--i:1">
-                    <span class="tile-num">02</span>
-                    <h3>Identidad corporativa</h3>
-                    <p>Sitios multipágina que transmiten confianza. Testimonios, videos, redes sociales y diseño a tu marca para posicionarte como referente.</p>
+
+                <!-- Laptop · Identidad corporativa -->
+                <article class="svc-row reveal">
+                    <div class="svc-word"><span class="svc-index">02</span></div>
+                    <div class="device-wrap">
+                        <div class="device device--laptop tilt" data-tilt>
+                            <div class="device-frame">
+                                <div class="device-screen">
+                                    <div class="screen-page">
+                                        <span class="scr-kicker">Identidad corporativa</span>
+                                        <h3>Una marca coherente y memorable</h3>
+                                        <p>Crea una imagen única y coherente para tu marca. Diseñamos logos, paletas de colores y elementos visuales que reflejan la esencia de tu negocio y conectan con tu público.</p>
+                                        <p class="scr-cta">Presencia profesional desde el primer vistazo.</p>
+                                    </div>
+                                </div>
+                                <img src="img/devices/laptop.svg" alt="Laptop mostrando la identidad de una marca" width="800" height="520">
+                                <span class="device-glare" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
                 </article>
-                <article class="tile reveal" style="--i:2">
-                    <span class="tile-num">03</span>
-                    <h3>Sistemas inteligentes</h3>
-                    <p>Chatbots 24/7, simuladores interactivos y formularios con base de datos. Automatizamos tu atención para que la web trabaje sola.</p>
+
+                <!-- Tableta · Sistemas inteligentes -->
+                <article class="svc-row reveal">
+                    <div class="svc-word"><span class="svc-index">03</span></div>
+                    <div class="device-wrap">
+                        <div class="device device--tablet tilt" data-tilt>
+                            <div class="device-frame">
+                                <div class="device-screen">
+                                    <div class="screen-page">
+                                        <span class="scr-kicker">Sistemas inteligentes</span>
+                                        <h3>Atención automatizada con IA</h3>
+                                        <p>Automatiza tu atención al cliente con Inteligencia Artificial de manera eficiente y sin interrupciones.</p>
+                                        <ul class="feature-list">
+                                            <li>Chatbots 24/7</li>
+                                            <li>Simuladores interactivos</li>
+                                            <li>Formularios con base de datos</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <img src="img/devices/tablet.svg" alt="Tableta ejecutando un asistente con IA" width="600" height="760">
+                                <span class="device-glare" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
                 </article>
+
             </div>
         </div>
     </section>
@@ -134,23 +232,21 @@
         <div class="container">
             <div class="section-head reveal">
                 <span class="eyebrow">Inversión</span>
-                <h2 class="section-title">Elige el paquete a tu medida.</h2>
-                <p class="section-sub">Precios en pesos mexicanos (MXN). Cada paquete incluye una capacitación básica al finalizar para que administres tu sitio sin depender de terceros.</p>
+                <h2 class="section-title anim-words">Elige el paquete a tu medida.</h2>
+                <p class="section-sub">Sabemos que cada cliente tiene necesidades diferentes. Por eso, ofrecemos paquetes diseñados para adaptarse a tu proyecto y presupuesto.</p>
             </div>
 
-            <div class="pricing">
+            <div class="pricing reveal" data-deck>
 
                 <!-- Launch Kit -->
-                <article class="plan reveal" style="--i:0">
+                <article class="plan">
                     <header class="plan-head">
                         <h3 class="plan-name">Launch Kit</h3>
-                        <p class="plan-tag">Para negocios que inician su arranque digital</p>
                     </header>
                     <div class="plan-price">
                         <span class="amount">$5,000</span>
                         <span class="currency">MXN</span>
                     </div>
-                    <p class="plan-breakdown">$4,000 desarrollo · $1,000 hosting y dominio / año</p>
                     <ul class="feature-list">
                         <li>Landing page profesional (4 secciones)</li>
                         <li>Formulario de contacto simple</li>
@@ -164,17 +260,15 @@
                 </article>
 
                 <!-- Next Level -->
-                <article class="plan plan-featured reveal" style="--i:1">
+                <article class="plan plan-featured">
                     <span class="plan-badge">Más vendido</span>
                     <header class="plan-head">
                         <h3 class="plan-name">Next Level</h3>
-                        <p class="plan-tag">Para negocios en expansión virtual y profesional</p>
                     </header>
                     <div class="plan-price">
                         <span class="amount">$8,000</span>
                         <span class="currency">MXN</span>
                     </div>
-                    <p class="plan-breakdown">$7,000 desarrollo · $1,000 hosting y dominio / año</p>
                     <ul class="feature-list">
                         <li>Sitio de 6 secciones + carrusel de testimonios</li>
                         <li>Formulario de contacto avanzado</li>
@@ -190,16 +284,14 @@
                 </article>
 
                 <!-- Rise Plus -->
-                <article class="plan reveal" style="--i:2">
+                <article class="plan">
                     <header class="plan-head">
                         <h3 class="plan-name">Rise Plus</h3>
-                        <p class="plan-tag">Para marcas consolidadas que buscan más ventas</p>
                     </header>
                     <div class="plan-price">
                         <span class="amount">$10,000</span>
                         <span class="currency">MXN</span>
                     </div>
-                    <p class="plan-breakdown">$9,000 desarrollo · $1,000 hosting y dominio / año</p>
                     <ul class="feature-list">
                         <li>Sitio de 8 secciones (certificaciones y promociones)</li>
                         <li>Formulario de contacto avanzado</li>
@@ -215,6 +307,40 @@
                     <a href="paquetes/PAQUETE%20RISE%20PLUS.pdf" class="btn-outline" download>Descargar propuesta (PDF)</a>
                 </article>
 
+                <!-- Mantenimiento (mensual) -->
+                <article class="plan plan-monthly">
+                    <span class="plan-badge badge-new">Nuevo · Mensual</span>
+                    <header class="plan-head">
+                        <h3 class="plan-name">Mantenimiento</h3>
+                    </header>
+                    <div class="plan-price">
+                        <span class="amount">$500</span>
+                        <span class="currency">MXN / mes</span>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Actualizaciones de contenido (textos, fotos, promos)</li>
+                        <li>Respaldos periódicos de tu sitio</li>
+                        <li>Monitoreo de seguridad y disponibilidad</li>
+                        <li>Ajustes menores de diseño</li>
+                        <li>Soporte prioritario por WhatsApp</li>
+                        <li>Reporte mensual de tu sitio</li>
+                    </ul>
+                    <p class="plan-delivery"><span>Modalidad</span> Pago mensual · cancela cuando quieras</p>
+                    <p class="plan-extra">Complemento ideal para cualquier paquete</p>
+                    <a href="#contacto" class="btn-outline">Me interesa</a>
+                </article>
+
+                <!-- Flechas a los lados del deck -->
+                <button type="button" class="concepts-btn deck-arrow deck-arrow-prev" data-deck-prev aria-label="Paquete anterior">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <button type="button" class="concepts-btn deck-arrow deck-arrow-next" data-deck-next aria-label="Siguiente paquete">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+            </div>
+
+            <div class="pricing-nav reveal">
+                <div class="carousel-dots deck-dots" data-deck-dots></div>
             </div>
         </div>
     </section>
@@ -224,7 +350,7 @@
         <div class="container">
             <div class="section-head reveal">
                 <span class="eyebrow">Comparativa</span>
-                <h2 class="section-title">Todo lo que incluye cada paquete.</h2>
+                <h2 class="section-title anim-words">¿Qué obtienes con nuestros paquetes?</h2>
             </div>
             <div class="table-wrap reveal">
                 <table class="compare">
@@ -257,40 +383,128 @@
         </div>
     </section>
 
-    <!-- Advertencias / Notas importantes -->
-    <section class="section section-alt">
+    <!-- Conceptos (carrusel educativo) -->
+    <section id="conceptos" class="section section-alt">
         <div class="container">
             <div class="section-head reveal">
-                <span class="eyebrow">Antes de contratar</span>
-                <h2 class="section-title">Notas importantes.</h2>
+                <span class="eyebrow">Para que lo tengas claro</span>
+                <h2 class="section-title anim-words">¿Qué necesitas saber?</h2>
+                <p class="section-sub">Si es tu primer sitio web, aquí lo esencial sin tecnicismos. Desliza para ver más →</p>
             </div>
-            <div class="notes reveal">
-                <div class="note">
-                    <h4>Hosting y dominio</h4>
-                    <p>No están incluidos en el costo de desarrollo. Se cobran aparte (aprox. $1,000 MXN al año) y pueden variar según el proveedor.</p>
+
+            <div class="concepts reveal" data-concepts>
+                <div class="concepts-track" data-concepts-track>
+
+                    <article class="concept-card">
+                        <span class="concept-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><line x1="7" y1="7.5" x2="7" y2="7.5"/><line x1="7" y1="16.5" x2="7" y2="16.5"/></svg>
+                        </span>
+                        <h4>¿Qué es el hosting?</h4>
+                        <p>Es el espacio donde vive tu sitio en internet, encendido las 24 horas. Sin él, tu página no está disponible. Se contrata aparte (~$1,000/año).</p>
+                    </article>
+
+                    <article class="concept-card">
+                        <span class="concept-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>
+                        </span>
+                        <h4>¿Qué es el dominio?</h4>
+                        <p>Tu dirección en internet, como <strong>tunegocio.com</strong>. Es lo que tus clientes escriben para encontrarte.</p>
+                    </article>
+
+                    <article class="concept-card">
+                        <span class="concept-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="14" height="10" rx="1.5"/><path d="M2 18h14"/><rect x="17.5" y="9" width="4.5" height="11" rx="1.5"/></svg>
+                        </span>
+                        <h4>¿Responsive?</h4>
+                        <p>Que tu web se vea y funcione perfecto en celular, tablet y computadora. Hoy la mayoría te visita desde el teléfono.</p>
+                    </article>
+
+                    <article class="concept-card">
+                        <span class="concept-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/><circle cx="9" cy="10.5" r="0.6" fill="currentColor"/><circle cx="12" cy="10.5" r="0.6" fill="currentColor"/><circle cx="15" cy="10.5" r="0.6" fill="currentColor"/></svg>
+                        </span>
+                        <h4>¿Chatbot?</h4>
+                        <p>Un asistente que responde a tus clientes automáticamente, al instante y las 24 horas, incluso mientras duermes.</p>
+                    </article>
+
+                    <article class="concept-card concept-sim">
+                        <span class="concept-kicker">Simulador · pruébalo</span>
+                        <h4>¿Cuánto costaría tu sitio?</h4>
+                        <div class="sim" data-sim>
+                            <div class="sim-field">
+                                <span class="sim-label">Secciones</span>
+                                <div class="sim-seg" data-sim-sections>
+                                    <button type="button" data-val="4" class="active">4</button>
+                                    <button type="button" data-val="6">6</button>
+                                    <button type="button" data-val="8">8</button>
+                                </div>
+                            </div>
+                            <div class="sim-field">
+                                <span class="sim-label">Extras</span>
+                                <div class="sim-seg sim-seg-multi">
+                                    <button type="button" data-sim-toggle="chatbot">Chatbot 24/7</button>
+                                    <button type="button" data-sim-toggle="tienda">Tienda en línea</button>
+                                </div>
+                            </div>
+                            <div class="sim-result">
+                                <div>
+                                    <span class="sim-amount" data-sim-amount>$5,000</span>
+                                    <span class="sim-cur">MXN aprox.</span>
+                                </div>
+                                <span class="sim-pkg" data-sim-pkg>Paquete Launch Kit</span>
+                            </div>
+                            <p class="sim-disclaimer">Estimación orientativa. No sustituye una cotización formal.</p>
+                        </div>
+                    </article>
+
                 </div>
-                <div class="note">
-                    <h4>Tiempos de entrega</h4>
-                    <p>Los plazos son estimados y dependen de la aprobación del contenido. Ante cualquier imprevisto pueden extenderse hasta 7 días adicionales (14 en Rise Plus).</p>
-                </div>
-                <div class="note">
-                    <h4>El simulador</h4>
-                    <p>Genera una estimación orientativa a partir de las respuestas del usuario. No sustituye una valoración profesional; sirve para captar prospectos y generar confianza.</p>
-                </div>
-                <div class="note">
-                    <h4>Alcance del servicio</h4>
-                    <p>Cada paquete incluye únicamente lo detallado. Cualquier ajuste, función o solicitud adicional se cotiza por separado.</p>
+
+                <div class="concepts-nav">
+                    <button class="concepts-btn" data-concepts-prev aria-label="Anterior">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    </button>
+                    <button class="concepts-btn" data-concepts-next aria-label="Siguiente">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Equipo -->
+    <section id="equipo" class="section">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="eyebrow">Nosotros</span>
+                <h2 class="section-title anim-words">El equipo Cherry.</h2>
+            </div>
+            <div class="team">
+                <article class="member tilt reveal" data-tilt style="--i:0">
+                    <span class="member-glow" aria-hidden="true"></span>
+                    <div class="avatar">M</div>
+                    <div class="member-body">
+                        <h3>Marjo</h3>
+                        <span class="member-chip">Ing. en Sistemas &amp; Estrategia</span>
+                    </div>
+                </article>
+                <article class="member tilt reveal" data-tilt style="--i:1">
+                    <span class="member-glow" aria-hidden="true"></span>
+                    <div class="avatar">D</div>
+                    <div class="member-body">
+                        <h3>Diego</h3>
+                        <span class="member-chip">Programación Web</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- Términos y condiciones -->
-    <section id="terminos" class="section">
+    <section id="terminos" class="section section-alt">
         <div class="container container-narrow">
             <div class="section-head reveal">
                 <span class="eyebrow">Acuerdos claros y humanos</span>
-                <h2 class="section-title">Términos y condiciones.</h2>
+                <h2 class="section-title anim-words">Términos y condiciones.</h2>
                 <p class="section-sub">Están pensados para proteger tu experiencia y nuestro compromiso.</p>
             </div>
             <div class="accordion reveal">
@@ -318,42 +532,14 @@
         </div>
     </section>
 
-    <!-- Equipo -->
-    <section id="equipo" class="section section-alt">
-        <div class="container">
-            <div class="section-head reveal">
-                <span class="eyebrow">Nosotros</span>
-                <h2 class="section-title">El equipo Cherry.</h2>
-            </div>
-            <div class="team">
-                <article class="member reveal" style="--i:0">
-                    <div class="avatar">M</div>
-                    <div>
-                        <h3>Marjo</h3>
-                        <p class="member-role">Ing. en Sistemas &amp; Estrategia</p>
-                        <p class="member-desc">Entiende tu negocio y diseña la mejor solución digital para tus objetivos.</p>
-                    </div>
-                </article>
-                <article class="member reveal" style="--i:1">
-                    <div class="avatar">D</div>
-                    <div>
-                        <h3>Diego</h3>
-                        <p class="member-role">Programación Web</p>
-                        <p class="member-desc">El arquitecto que escribe el código para que todo funcione perfecto.</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
     <!-- Contacto -->
     <section id="contacto" class="section">
         <div class="container">
             <div class="cta reveal">
                 <span class="eyebrow eyebrow-invert">¿Listo para empezar?</span>
-                <h2>Hablemos de tu próximo proyecto.</h2>
+                <h2 class="anim-words">Hablemos de tu próximo proyecto.</h2>
                 <p>Cuéntanos qué necesitas y te ayudamos a elegir el paquete ideal.</p>
-                <a href="https://wa.me/5214771573936" class="btn-whatsapp" target="_blank" rel="noopener">
+                <a href="https://wa.me/5214423248171" class="btn-whatsapp" target="_blank" rel="noopener">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.98-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43l-.48-.01c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.16 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
                     Escríbenos por WhatsApp
                 </a>
@@ -361,7 +547,7 @@
         </div>
     </section>
 
-    <a href="https://wa.me/5214771573936" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <a href="https://wa.me/5214423248171" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.98-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43l-.48-.01c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.16 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
     </a>
 
@@ -373,6 +559,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=3"></script>
 </body>
 </html>

@@ -1,7 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- Split text (animación palabra / letra) ---------- */
+    if (!reduceMotion) {
+        const splitInto = (el, unit) => {
+            if (el.dataset.split) return;
+            const text = el.textContent;
+            el.textContent = '';
+            let i = 0;
+            const parts = unit === 'chars' ? Array.from(text) : text.split(/(\s+)/);
+            parts.forEach((part) => {
+                if (/^\s+$/.test(part)) { el.appendChild(document.createTextNode(part)); return; }
+                if (part === '') return;
+                const span = document.createElement('span');
+                span.className = unit === 'chars' ? 'c' : 'w';
+                span.textContent = part;
+                span.style.setProperty('--wi', i++);
+                el.appendChild(span);
+            });
+            el.dataset.split = '1';
+        };
+        document.querySelectorAll('.anim-words').forEach((el) => { if (!el.querySelector('*')) splitInto(el, 'words'); });
+        document.querySelectorAll('.anim-chars').forEach((el) => splitInto(el, 'chars'));
+    }
+
     /* ---------- Scroll-entry reveal (IntersectionObserver) ---------- */
-    const reveals = document.querySelectorAll('.reveal');
+    const animated = document.querySelectorAll('.reveal, .anim-words, .anim-chars');
     if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -11,9 +36,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-        reveals.forEach((el) => io.observe(el));
+        animated.forEach((el) => io.observe(el));
     } else {
-        reveals.forEach((el) => el.classList.add('in'));
+        animated.forEach((el) => el.classList.add('in'));
+    }
+
+    /* ---------- Tilt 3D + spotlight (dispositivos y equipo) ---------- */
+    if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll('[data-tilt]').forEach((el) => {
+            const max = el.classList.contains('member') ? 7 : 9;
+            let raf = null;
+            const onMove = (e) => {
+                const r = el.getBoundingClientRect();
+                const px = (e.clientX - r.left) / r.width;
+                const py = (e.clientY - r.top) / r.height;
+                el.style.setProperty('--mx', (px * 100) + '%');
+                el.style.setProperty('--my', (py * 100) + '%');
+                if (raf) return;
+                raf = requestAnimationFrame(() => {
+                    const rx = (0.5 - py) * max;
+                    const ry = (px - 0.5) * max;
+                    el.style.transform = 'perspective(900px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+                    raf = null;
+                });
+            };
+            const reset = () => { if (raf) cancelAnimationFrame(raf), raf = null; el.style.transform = ''; };
+            el.addEventListener('mousemove', onMove);
+            el.addEventListener('mouseleave', reset);
+        });
     }
 
     /* ---------- Navbar border on scroll ---------- */
@@ -56,25 +106,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape') closeMenu();
     });
 
-    /* ---------- Image carousel ---------- */
-    const carousel = document.querySelector('[data-carousel]');
-    if (carousel) {
+    /* ---------- Image carousels (soporta varios; dots opcionales) ---------- */
+    document.querySelectorAll('[data-carousel]').forEach((carousel, ci) => {
         const track = carousel.querySelector('[data-track]');
         const slides = Array.from(track.children);
         const dotsWrap = carousel.querySelector('[data-dots]');
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let index = 0;
         let timer = null;
 
-        // Build dots
-        slides.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.type = 'button';
-            dot.setAttribute('aria-label', 'Ir a la imagen ' + (i + 1));
-            dot.addEventListener('click', () => { goTo(i); restart(); });
-            dotsWrap.appendChild(dot);
-        });
-        const dots = Array.from(dotsWrap.children);
+        let dots = [];
+        if (dotsWrap) {
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', 'Ir a la imagen ' + (i + 1));
+                dot.addEventListener('click', () => { goTo(i); restart(); });
+                dotsWrap.appendChild(dot);
+            });
+            dots = Array.from(dotsWrap.children);
+        }
 
         function goTo(i) {
             index = (i + slides.length) % slides.length;
@@ -85,8 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const prev = () => goTo(index - 1);
 
         function start() {
-            if (reduceMotion) return;
-            timer = setInterval(next, 5000);
+            if (reduceMotion || timer) return;
+            timer = setInterval(next, 5000 + ci * 800); // desfase entre carruseles
         }
         function stop() { if (timer) { clearInterval(timer); timer = null; } }
         function restart() { stop(); start(); }
@@ -120,6 +170,130 @@ document.addEventListener('DOMContentLoaded', () => {
 
         goTo(0);
         start();
+    });
+
+    /* ---------- Paquetes: baraja giratoria (deck 3D) ---------- */
+    const deck = document.querySelector('[data-deck]');
+    if (deck) {
+        const cards = Array.from(deck.querySelectorAll('.plan'));
+        const n = cards.length;
+        const posClasses = ['pos-front', 'pos-right', 'pos-back', 'pos-left'];
+        const dotsWrap = document.querySelector('[data-deck-dots]');
+        let active = Math.max(0, cards.findIndex((c) => c.classList.contains('plan-featured')));
+
+        let dots = [];
+        if (dotsWrap) {
+            cards.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', 'Ver paquete ' + (i + 1));
+                dot.addEventListener('click', () => { active = i; layout(); });
+                dotsWrap.appendChild(dot);
+            });
+            dots = Array.from(dotsWrap.children);
+        }
+
+        function layout() {
+            cards.forEach((c, i) => {
+                const rel = (i - active + n) % n;
+                posClasses.forEach((pc) => c.classList.remove(pc));
+                c.classList.add(posClasses[rel] || 'pos-back');
+            });
+            dots.forEach((d, di) => d.classList.toggle('active', di === active));
+        }
+        const deckNext = () => { active = (active + 1) % n; layout(); };
+        const deckPrev = () => { active = (active - 1 + n) % n; layout(); };
+
+        function setHeights() {
+            cards.forEach((c) => { c.style.height = 'auto'; });
+            const h = Math.max(...cards.map((c) => c.offsetHeight));
+            cards.forEach((c) => { c.style.height = h + 'px'; });
+            deck.style.setProperty('--deck-h', (h + 30) + 'px');
+        }
+
+        const nextBtn = document.querySelector('[data-deck-next]');
+        const prevBtn = document.querySelector('[data-deck-prev]');
+        if (nextBtn) nextBtn.addEventListener('click', deckNext);
+        if (prevBtn) prevBtn.addEventListener('click', deckPrev);
+
+        // Clic en una tarjeta lateral/trasera la trae al frente
+        cards.forEach((c, i) => {
+            c.addEventListener('click', (e) => {
+                if (!c.classList.contains('pos-front')) {
+                    e.preventDefault();
+                    active = i;
+                    layout();
+                }
+            });
+        });
+
+        // Swipe táctil
+        let deckStartX = 0;
+        deck.addEventListener('touchstart', (e) => { deckStartX = e.touches[0].clientX; }, { passive: true });
+        deck.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - deckStartX;
+            if (Math.abs(dx) > 45) (dx < 0 ? deckNext() : deckPrev());
+        }, { passive: true });
+
+        layout();
+        setHeights();
+        window.addEventListener('load', setHeights);
+        let rz = null;
+        window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(setHeights, 150); });
+    }
+
+    /* ---------- Carrusel de conceptos (flechas) ---------- */
+    const concepts = document.querySelector('[data-concepts]');
+    if (concepts) {
+        const track = concepts.querySelector('[data-concepts-track]');
+        const prevBtn = concepts.querySelector('[data-concepts-prev]');
+        const nextBtn = concepts.querySelector('[data-concepts-next]');
+        const step = () => {
+            const first = track.firstElementChild;
+            return first ? first.getBoundingClientRect().width + 18 : 320;
+        };
+        if (nextBtn) nextBtn.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+        if (prevBtn) prevBtn.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    }
+
+    /* ---------- Simulador exprés ---------- */
+    const sim = document.querySelector('[data-sim]');
+    if (sim) {
+        const segSections = sim.querySelector('[data-sim-sections]');
+        const toggles = sim.querySelectorAll('[data-sim-toggle]');
+        const amountEl = sim.querySelector('[data-sim-amount]');
+        const pkgEl = sim.querySelector('[data-sim-pkg]');
+        let sections = 4;
+        const extras = { chatbot: false, tienda: false };
+        const fmt = (n) => '$' + n.toLocaleString('es-MX');
+
+        const recompute = () => {
+            const base = sections === 4 ? 5000 : sections === 6 ? 8000 : 10000;
+            const pkg = sections === 4 ? 'Launch Kit' : sections === 6 ? 'Next Level' : 'Rise Plus';
+            let total = base;
+            if (extras.chatbot && sections === 4) total += 1500; // en 6/8 ya viene incluido
+            if (extras.tienda) total += 3000;
+            amountEl.textContent = fmt(total);
+            pkgEl.textContent = 'Paquete ' + pkg;
+        };
+
+        segSections.querySelectorAll('button').forEach((b) => {
+            b.addEventListener('click', () => {
+                segSections.querySelectorAll('button').forEach((x) => x.classList.remove('active'));
+                b.classList.add('active');
+                sections = parseInt(b.dataset.val, 10);
+                recompute();
+            });
+        });
+        toggles.forEach((b) => {
+            b.addEventListener('click', () => {
+                const key = b.dataset.simToggle;
+                extras[key] = !extras[key];
+                b.classList.toggle('active', extras[key]);
+                recompute();
+            });
+        });
+        recompute();
     }
 
     /* ---------- Accordion: keep one item open at a time ---------- */
