@@ -296,6 +296,89 @@ document.addEventListener('DOMContentLoaded', () => {
         recompute();
     }
 
+    /* ---------- Team carousel (draggable stacked cards) ---------- */
+    const teamCarousel = document.querySelector('[data-team-carousel]');
+    if (teamCarousel) {
+        const cards = Array.from(teamCarousel.querySelectorAll('[data-team-card]'));
+        const dotsWrap = teamCarousel.querySelector('[data-team-dots]');
+        const total = cards.length;
+        let current = 0;
+
+        cards.forEach((card, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.setAttribute('aria-label', 'Ver a ' + card.querySelector('h3').textContent);
+            dot.addEventListener('click', () => goTo(i));
+            dotsWrap.appendChild(dot);
+        });
+        const dots = Array.from(dotsWrap.children);
+
+        function layout() {
+            cards.forEach((card, i) => {
+                const offset = (i - current + total) % total;
+                card.style.setProperty('--pos', offset);
+                card.style.zIndex = total - offset;
+                card.classList.toggle('is-front', offset === 0);
+            });
+            dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        }
+        function goTo(i) { current = (i + total) % total; layout(); }
+        function next() { goTo(current + 1); }
+        function prev() { goTo(current - 1); }
+
+        const nextBtn = teamCarousel.querySelector('[data-team-next]');
+        const prevBtn = teamCarousel.querySelector('[data-team-prev]');
+        if (nextBtn) nextBtn.addEventListener('click', () => next());
+        if (prevBtn) prevBtn.addEventListener('click', () => prev());
+
+        cards.forEach((card) => {
+            let startX = 0;
+            let dragging = false;
+
+            card.addEventListener('pointerdown', (e) => {
+                if (!card.classList.contains('is-front')) return;
+                dragging = true;
+                startX = e.clientX;
+                card.classList.add('dragging');
+                card.setPointerCapture(e.pointerId);
+            });
+            card.addEventListener('pointermove', (e) => {
+                if (!dragging) return;
+                const dx = e.clientX - startX;
+                card.style.setProperty('--drag-x', dx + 'px');
+                card.style.setProperty('--drag-rot', (dx / 20) + 'deg');
+            });
+            const endDrag = () => {
+                if (!dragging) return;
+                dragging = false;
+                card.classList.remove('dragging');
+                const dx = parseFloat(card.style.getPropertyValue('--drag-x')) || 0;
+                card.style.removeProperty('--drag-x');
+                card.style.removeProperty('--drag-rot');
+                if (Math.abs(dx) > 80) (dx < 0 ? next() : prev());
+            };
+            card.addEventListener('pointerup', endDrag);
+            card.addEventListener('pointercancel', endDrag);
+        });
+
+        layout();
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let timer = null;
+        function start() { if (!reduceMotion) timer = setInterval(next, 4500); }
+        function stop() { if (timer) { clearInterval(timer); timer = null; } }
+        teamCarousel.addEventListener('mouseenter', stop);
+        teamCarousel.addEventListener('mouseleave', start);
+        teamCarousel.addEventListener('pointerdown', stop);
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver((entries) => {
+                entries.forEach((e) => { e.isIntersecting ? start() : stop(); });
+            }, { threshold: 0.3 }).observe(teamCarousel);
+        } else {
+            start();
+        }
+    }
+
     /* ---------- Accordion: keep one item open at a time ---------- */
     const items = document.querySelectorAll('.accordion details');
     items.forEach((item) => {
