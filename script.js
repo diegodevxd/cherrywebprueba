@@ -2,6 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /* ---------- Enlace de correo: mailto en móvil, Gmail web en escritorio ----------
+       En el celular "mailto:" abre el redactar nativo de la app de Gmail (correcto).
+       En escritorio, la app de Gmail no aplica: si no hay cliente de correo
+       configurado, "mailto:" no hace nada, así que ahí abrimos el redactar
+       web de Gmail en una pestaña nueva. (pointer: coarse) detecta pantallas
+       táctiles (celular/tablet) de forma fiable, sin sniffear el user-agent. */
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (!isTouch) {
+        document.querySelectorAll('.js-mail').forEach((link) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open(link.dataset.mailWeb, '_blank', 'noopener');
+            });
+        });
+    }
+
     /* ---------- Split text (animación palabra / letra) ---------- */
     if (!reduceMotion) {
         const splitInto = (el, unit) => {
