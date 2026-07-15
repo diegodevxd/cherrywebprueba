@@ -61,8 +61,9 @@ a { color: inherit; text-decoration: none; }
     to   { transform: translate3d(0,-2%,0) scale(1.05); }
 }
 .grain {
-    position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.028;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 1;
+    width: 100%; height: 100%;
+    mix-blend-mode: multiply;
 }
 
 /* ---------- Typography helpers ---------- */
@@ -105,11 +106,20 @@ a { color: inherit; text-decoration: none; }
     display: flex; align-items: center; justify-content: space-between;
     padding: 1.1rem 6vw;
     z-index: 1000;
-    background: rgba(251,251,250,0.72);
-    backdrop-filter: saturate(180%) blur(14px);
-    -webkit-backdrop-filter: saturate(180%) blur(14px);
     border-bottom: 1px solid transparent;
-    transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
+    transition: border-color 0.4s var(--ease);
+}
+/* El tinte + blur van en un pseudo-elemento: si van directo en .navbar,
+   backdrop-filter convierte a .navbar en containing block de sus hijos
+   position:fixed (el .nav-links del menú móvil), rompiendo el drawer a
+   pantalla completa (queda del tamaño de la barra, no del viewport). */
+.navbar::before {
+    content: '';
+    position: absolute; inset: 0; z-index: -1;
+    background: rgba(251,251,250,0.72);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    backdrop-filter: saturate(180%) blur(14px);
+    transition: background 0.4s var(--ease);
 }
 .navbar.scrolled { border-bottom-color: var(--line); }
 
@@ -153,11 +163,31 @@ a { color: inherit; text-decoration: none; }
 .nav-links a:not(.btn-nav):hover::after { width: 100%; }
 
 .btn-nav {
-    color: #fff !important; background: var(--ink);
-    padding: 0.55rem 1.3rem; border-radius: 8px;
-    transition: transform 0.2s var(--ease), background 0.25s var(--ease);
+    color: #fff !important;
+    background: rgba(26, 26, 26, 0.7);
+    padding: 0.55rem 1.3rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s var(--ease), background 0.4s var(--ease),
+                backdrop-filter 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
-.btn-nav:hover { background: #000; transform: translateY(-1px); }
+.btn-nav:hover {
+    background: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(16px) saturate(200%);
+    -webkit-backdrop-filter: blur(16px) saturate(200%);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 6px 18px rgba(0, 0, 0, 0.18);
+    transform: translateY(-1px);
+}
+.btn-nav:active {
+    transform: translateY(0) scale(0.98);
+}
 
 .burger {
     display: none; flex-direction: column; gap: 5px;
@@ -171,35 +201,105 @@ a { color: inherit; text-decoration: none; }
 .btn-solid, .btn-ghost, .btn-outline {
     display: inline-flex; align-items: center; gap: 0.6rem;
     font-size: 0.95rem; font-weight: 600; cursor: pointer;
-    transition: transform 0.2s var(--ease), background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+    transition: transform 0.3s var(--ease), background 0.4s var(--ease), 
+                border-color 0.4s var(--ease), color 0.4s var(--ease),
+                box-shadow 0.4s var(--ease), backdrop-filter 0.4s var(--ease);
 }
+
 .btn-solid {
-    background: var(--ink); color: #fff;
-    padding: 0.85rem 1.5rem; border-radius: 10px; border: 1px solid var(--ink);
+    background: rgba(26, 26, 26, 0.75);
+    color: #fff;
+    padding: 0.85rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 4px 16px rgba(0, 0, 0, 0.12);
 }
-.btn-solid:hover { background: #000; transform: translateY(-2px); }
-.btn-solid:active { transform: scale(0.98); }
+.btn-solid:hover {
+    background: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(16px) saturate(200%);
+    -webkit-backdrop-filter: blur(16px) saturate(200%);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 24px rgba(0, 0, 0, 0.18);
+    transform: translateY(-2px);
+}
+.btn-solid:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.15);
+}
 .btn-arrow {
     display: inline-flex; align-items: center; justify-content: center;
     width: 24px; height: 24px; border-radius: 50%;
-    background: rgba(255,255,255,0.14);
-    transition: transform 0.25s var(--ease);
+    background: rgba(255,255,255,0.18);
+    transition: transform 0.25s var(--ease), background 0.3s var(--ease);
 }
-.btn-solid:hover .btn-arrow { transform: translate(2px,-2px); }
+.btn-solid:hover .btn-arrow {
+    transform: translate(2px,-2px);
+    background: rgba(255,255,255,0.25);
+}
 .btn-block { width: 100%; justify-content: center; margin-top: auto; }
 
 .btn-ghost {
-    color: var(--ink); padding: 0.85rem 1.4rem; border-radius: 10px;
-    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 0.85rem 1.4rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 4px 16px rgba(0, 0, 0, 0.06);
 }
-.btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(16px) saturate(200%);
+    -webkit-backdrop-filter: blur(16px) saturate(200%);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+.btn-ghost:active {
+    transform: translateY(0) scale(0.98);
+}
 
 .btn-outline {
-    justify-content: center; width: 100%; margin-top: auto;
-    color: var(--ink); padding: 0.8rem 1.4rem; border-radius: 10px;
-    border: 1px solid var(--line);
+    justify-content: center;
+    width: 100%;
+    margin-top: auto;
+    color: var(--ink);
+    padding: 0.8rem 1.4rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(234, 232, 227, 0.8);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.04);
 }
-.btn-outline:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
+.btn-outline:hover {
+    background: rgba(26, 26, 26, 0.85);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+.btn-outline:active {
+    transform: translateY(0) scale(0.98);
+}
 
 /* ---------- Hero ---------- */
 .hero {
@@ -710,6 +810,27 @@ details[open] .acc-icon::after { transform: rotate(90deg); opacity: 0; }
 }
 .btn-whatsapp:hover { transform: translateY(-2px); filter: brightness(1.06); }
 
+/* ---------- Social links (redes oficiales) ---------- */
+.social-row { display: flex; align-items: center; justify-content: center; gap: 0.7rem; margin-top: 1.8rem; }
+.social-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
+    transition: transform 0.2s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.social-icon:hover { color: var(--cherry-ink); border-color: var(--cherry-ink); transform: translateY(-3px); }
+.social-icon:active { transform: translateY(-1px) scale(0.96); }
+
+/* Variante para fondos oscuros (CTA de contacto) */
+.social-row--invert .social-icon {
+    background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); color: rgba(255,255,255,0.75);
+}
+.social-row--invert .social-icon:hover { background: rgba(255,255,255,0.15); border-color: #fff; color: #fff; }
+
+/* Variante compacta del footer */
+.footer-social { gap: 0.5rem; margin-top: 0; }
+.footer-social .social-icon { width: 36px; height: 36px; }
+
 /* ---------- WhatsApp float ---------- */
 .whatsapp-float {
     position: fixed; right: 26px; bottom: 26px; z-index: 900;
@@ -750,6 +871,29 @@ details[open] .acc-icon::after { transform: rotate(90deg); opacity: 0; }
     .ambient { animation: none; }
     .device-frame { animation: none !important; }
     html { scroll-behavior: auto; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .btn-solid {
+        background: var(--ink);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+    .btn-ghost {
+        background: var(--surface);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+    .btn-outline {
+        background: var(--surface);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+    .btn-nav {
+        background: var(--ink);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
 }
 
 /* ---------- Responsive ---------- */
@@ -945,8 +1089,36 @@ details[open] .acc-icon::after { transform: rotate(90deg); opacity: 0; }
     .hero-meta li { color: rgba(255,255,255,0.72); }
 
     /* Botones legibles sobre la imagen */
-    .hero-actions .btn-solid { background: #fff; color: var(--ink); border-color: #fff; }
-    .hero-actions .btn-solid .btn-arrow { background: rgba(0,0,0,0.08); }
-    .hero-actions .btn-ghost { color: #fff; border-color: rgba(255,255,255,0.45); }
-    .hero-actions .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+    .hero-actions .btn-solid {
+        background: rgba(255, 255, 255, 0.85);
+        color: var(--ink);
+        border-color: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(14px) saturate(180%);
+        -webkit-backdrop-filter: blur(14px) saturate(180%);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.6),
+            0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    .hero-actions .btn-solid:hover {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(18px) saturate(200%);
+        -webkit-backdrop-filter: blur(18px) saturate(200%);
+    }
+    .hero-actions .btn-solid .btn-arrow { background: rgba(0,0,0,0.1); }
+    .hero-actions .btn-ghost {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(12px) saturate(180%);
+        -webkit-backdrop-filter: blur(12px) saturate(180%);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.15),
+            0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+    .hero-actions .btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.22);
+        border-color: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(16px) saturate(200%);
+        -webkit-backdrop-filter: blur(16px) saturate(200%);
+    }
 }

@@ -7,6 +7,9 @@ modelo3d/
 img/models/
 vendor/
 
+# Documentos de referencia del cliente (no son assets del sitio)
+cuentas/
+
 # Sistema
 Thumbs.db
 .DS_Store

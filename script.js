@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', closeMenu);
     });
 
-    // Cerrar al tocar el fondo oscuro
     document.addEventListener('click', (e) => {
         if (document.body.classList.contains('menu-open') &&
             !navLinks.contains(e.target) && !burger.contains(e.target)) {
@@ -136,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function start() {
             if (reduceMotion || timer) return;
-            timer = setInterval(next, 5000 + ci * 800); // desfase entre carruseles
+            timer = setInterval(next, 5000 + ci * 800);
         }
         function stop() { if (timer) { clearInterval(timer); timer = null; } }
         function restart() { stop(); start(); }
@@ -146,20 +145,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nextBtn) nextBtn.addEventListener('click', () => { next(); restart(); });
         if (prevBtn) prevBtn.addEventListener('click', () => { prev(); restart(); });
 
-        // Pause on hover / focus
         carousel.addEventListener('mouseenter', stop);
         carousel.addEventListener('mouseleave', start);
         carousel.addEventListener('focusin', stop);
         carousel.addEventListener('focusout', start);
 
-        // Pause when off-screen (efficiency)
         if ('IntersectionObserver' in window) {
             new IntersectionObserver((entries) => {
                 entries.forEach((e) => { e.isIntersecting ? start() : stop(); });
             }, { threshold: 0.2 }).observe(carousel);
         }
 
-        // Touch swipe
         let startX = 0;
         track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stop(); }, { passive: true });
         track.addEventListener('touchend', (e) => {
@@ -216,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nextBtn) nextBtn.addEventListener('click', deckNext);
         if (prevBtn) prevBtn.addEventListener('click', deckPrev);
 
-        // Clic en una tarjeta lateral/trasera la trae al frente
         cards.forEach((c, i) => {
             c.addEventListener('click', (e) => {
                 if (!c.classList.contains('pos-front')) {
@@ -227,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Swipe táctil
         let deckStartX = 0;
         deck.addEventListener('touchstart', (e) => { deckStartX = e.touches[0].clientX; }, { passive: true });
         deck.addEventListener('touchend', (e) => {
@@ -271,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const base = sections === 4 ? 5000 : sections === 6 ? 8000 : 10000;
             const pkg = sections === 4 ? 'Launch Kit' : sections === 6 ? 'Next Level' : 'Rise Plus';
             let total = base;
-            if (extras.chatbot && sections === 4) total += 1500; // en 6/8 ya viene incluido
+            if (extras.chatbot && sections === 4) total += 1500;
             if (extras.tienda) total += 3000;
             amountEl.textContent = fmt(total);
             pkgEl.textContent = 'Paquete ' + pkg;
@@ -363,9 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         layout();
 
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const reduceMotionTeam = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let timer = null;
-        function start() { if (!reduceMotion) timer = setInterval(next, 4500); }
+        function start() { if (!reduceMotionTeam) timer = setInterval(next, 4500); }
         function stop() { if (timer) { clearInterval(timer); timer = null; } }
         teamCarousel.addEventListener('mouseenter', stop);
         teamCarousel.addEventListener('mouseleave', start);
@@ -388,5 +382,123 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    /* ---------- WebGL Mesh Gradient Shader (animated color blobs) ---------- */
+    const grainCanvas = document.getElementById('grainCanvas');
+    if (grainCanvas && !reduceMotion) {
+        const gl = grainCanvas.getContext('webgl', { alpha: true, premultipliedAlpha: false });
+        if (gl) {
+            const vertSrc = `
+                attribute vec2 a_pos;
+                void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }
+            `;
+            const fragSrc = `
+                precision mediump float;
+                uniform float u_time;
+                uniform vec2 u_res;
+
+                vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+
+                float snoise(vec2 v) {
+                    const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+                                       -0.577350269189626, 0.024390243902439);
+                    vec2 i  = floor(v + dot(v, C.yy));
+                    vec2 x0 = v - i + dot(i, C.xx);
+                    vec2 i1;
+                    i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+                    vec4 x12 = x0.xyxy + C.xxzz;
+                    x12.xy -= i1;
+                    i = mod289(i);
+                    vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
+                        + i.x + vec3(0.0, i1.x, 1.0));
+                    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+                        dot(x12.zw,x12.zw)), 0.0);
+                    m = m*m;
+                    m = m*m;
+                    vec3 x = 2.0 * fract(p * C.www) - 1.0;
+                    vec3 h = abs(x) - 0.5;
+                    vec3 ox = floor(x + 0.5);
+                    vec3 a0 = x - ox;
+                    m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+                    vec3 g;
+                    g.x  = a0.x  * x0.x  + h.x  * x0.y;
+                    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+                    return 130.0 * dot(m, g);
+                }
+
+                void main() {
+                    vec2 uv = gl_FragCoord.xy / u_res;
+                    float t = u_time * 0.05;
+                    
+                    float n1 = snoise(uv * 1.8 + vec2(t * 0.6, t * 0.4));
+                    float n2 = snoise(uv * 2.5 + vec2(-t * 0.5, t * 0.7));
+                    float n3 = snoise(uv * 3.2 + vec2(t * 0.3, -t * 0.6));
+                    
+                    vec3 cherryPale = vec3(0.98, 0.92, 0.93);
+                    vec3 warmBeige = vec3(0.96, 0.94, 0.90);
+                    vec3 softGray = vec3(0.94, 0.93, 0.92);
+                    vec3 paleRose = vec3(0.97, 0.90, 0.91);
+                    
+                    vec3 col = softGray;
+                    col = mix(col, cherryPale, smoothstep(-0.3, 0.5, n1) * 0.6);
+                    col = mix(col, warmBeige, smoothstep(-0.2, 0.6, n2) * 0.5);
+                    col = mix(col, paleRose, smoothstep(-0.1, 0.7, n3) * 0.4);
+                    
+                    float alpha = 0.35 + (n1 + n2) * 0.15;
+                    gl_FragColor = vec4(col, alpha);
+                }
+            `;
+
+            function createShader(type, src) {
+                const s = gl.createShader(type);
+                gl.shaderSource(s, src);
+                gl.compileShader(s);
+                return s;
+            }
+
+            const vs = createShader(gl.VERTEX_SHADER, vertSrc);
+            const fs = createShader(gl.FRAGMENT_SHADER, fragSrc);
+            const prog = gl.createProgram();
+            gl.attachShader(prog, vs);
+            gl.attachShader(prog, fs);
+            gl.linkProgram(prog);
+            gl.useProgram(prog);
+
+            const buf = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+            const aPos = gl.getAttribLocation(prog, 'a_pos');
+            gl.enableVertexAttribArray(aPos);
+            gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+            const uTime = gl.getUniformLocation(prog, 'u_time');
+            const uRes = gl.getUniformLocation(prog, 'u_res');
+
+            function resize() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                grainCanvas.width = window.innerWidth * dpr * 0.5;
+                grainCanvas.height = window.innerHeight * dpr * 0.5;
+                gl.viewport(0, 0, grainCanvas.width, grainCanvas.height);
+            }
+            resize();
+            let grainRz = null;
+            window.addEventListener('resize', () => { clearTimeout(grainRz); grainRz = setTimeout(resize, 200); });
+
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+            const start = performance.now();
+            function render() {
+                const t = (performance.now() - start) / 1000;
+                gl.uniform1f(uTime, t);
+                gl.uniform2f(uRes, grainCanvas.width, grainCanvas.height);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                requestAnimationFrame(render);
+            }
+            render();
+        }
+    }
 
 });
