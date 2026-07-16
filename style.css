@@ -1069,23 +1069,32 @@ details[open] .acc-icon::after { transform: rotate(90deg); opacity: 0; }
     .hero-media .slide figcaption,
     .hero-media .carousel-dots { display: none; }
 
-    /* Velo oscuro para legibilidad del texto */
+    /* Velo tenue: la foto respira, la tarjeta de abajo hace el trabajo de contraste */
     .hero-media::after {
         content: ''; position: absolute; inset: 0;
         background: linear-gradient(180deg,
-            rgba(10,9,8,0.78) 0%,
-            rgba(10,9,8,0.82) 55%,
-            rgba(10,9,8,0.92) 100%);
+            rgba(10,9,8,0.3) 0%,
+            rgba(10,9,8,0.38) 55%,
+            rgba(10,9,8,0.5) 100%);
     }
 
-    /* Texto encima, en claro */
-    .hero-inner { position: relative; z-index: 1; max-width: none; }
-    .hero .eyebrow { color: #f6c9cd; text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
-    .hero-title { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.45); }
+    /* Tarjeta glassmorphism: fondo grisáceo semitransparente + blur, no un velo invisible */
+    .hero-inner {
+        position: relative; z-index: 1; max-width: none;
+        background: rgba(28,26,25,0.62);
+        -webkit-backdrop-filter: blur(22px) saturate(150%);
+        backdrop-filter: blur(22px) saturate(150%);
+        border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 22px;
+        padding: 1.9rem 1.5rem 1.6rem;
+        box-shadow: 0 16px 44px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .hero .eyebrow { color: #f6c9cd; }
+    .hero-title { color: #fff; }
     .hero-title em { color: #ff6b7d; }
-    .hero-lead { color: rgba(255,255,255,0.92); text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
+    .hero-lead { color: rgba(255,255,255,0.9); }
     .hero-meta { border-top-color: rgba(255,255,255,0.18); }
-    .hero-meta strong { color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+    .hero-meta strong { color: #fff; }
     .hero-meta li { color: rgba(255,255,255,0.78); }
 
     /* Botones legibles sobre la imagen */
